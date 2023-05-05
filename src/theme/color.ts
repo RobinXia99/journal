@@ -1,0 +1,15 @@
+export const color = {
+  darkPurple: '#241647',
+  purple: '#6335D6',
+  white: '#FFFFFF',
+  black: '#010101',
+  blue: '#41B5F3',
+  green: '#09CB84',
+  orange: '#F28739',
+  pink: '#EE5A8C',
+  lightPink: '#FFD3E4',
+  lightGrey: '#F2F2F2',
+  grey: '#8493AC',
+  darkGrey: '#1F2B44',
+  transparent: 'transparent',
+}

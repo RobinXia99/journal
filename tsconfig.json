@@ -1,0 +1,8 @@
+{
+  "extends": "expo/tsconfig.base",
+  "typeRoots": ["node_modules/@types"],
+  "compilerOptions": {
+    "noErrorTruncation": true,
+    "strict": true
+  }
+}
