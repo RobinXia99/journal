@@ -9,7 +9,7 @@ import { getAuth } from 'firebase/auth'
 // import {...} from "firebase/storage";
 
 // Initialize Firebase
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: 'AIzaSyA_uGFG7C5KISoS_4loDDK5fKaib24p0LU',
   authDomain: 'mentaljournal-e53a1.firebaseapp.com',
   databaseURL: 'https://mentaljournal-e53a1.firebaseio.com',
@@ -21,5 +21,6 @@ const firebaseConfig = {
 
 export const firebaseApp = initializeApp(firebaseConfig)
 export const auth = getAuth(firebaseApp)
+
 // For more information on how to access Firebase in your project,
 // see the Firebase documentation: https://firebase.google.com/docs/web/setup#access-firebase

@@ -1,13 +1,13 @@
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import LinkingConfiguration from './LinkingConfiguration'
 import { useAppSelector } from '../hooks/hooks'
 import { navigationRef } from './navigationUtils'
 import { LoggedOutRoutes } from './routes/loggedOut/LoggedOutStack'
 import { selectIsAuthenticated } from '../state/user'
 import { LoggedInRoutes } from './routes/loggedIn/LoggedInStack'
 import { useFirebaseAuth } from '../hooks/useFirebaseAuth'
-import { Text, View } from 'react-native'
+import styled from 'styled-components/native'
+import { useLoadFonts } from '../hooks/useLoadFonts'
 
 /**
  * If you are not familiar with React Navigation, refer to the "Fundamentals" guide:
@@ -19,29 +19,19 @@ export const Navigation: FC = () => {
 
   const isAuthenticated = useAppSelector(selectIsAuthenticated)
 
+  const fontsLoaded = useLoadFonts()
+
   return (
-    <AnimatedAppLoader>
-      <NavigationContainer linking={LinkingConfiguration()} ref={navigationRef}>
-        {isAuthenticated ? <LoggedInRoutes /> : <LoggedOutRoutes />}
-      </NavigationContainer>
-    </AnimatedAppLoader>
+    <AppContainer>
+      {fontsLoaded && (
+        <NavigationContainer ref={navigationRef}>
+          {isAuthenticated ? <LoggedInRoutes /> : <LoggedOutRoutes />}
+        </NavigationContainer>
+      )}
+    </AppContainer>
   )
 }
 
-const AnimatedAppLoader = ({ children }: { children: JSX.Element }) => {
-  const [isSplashReady, setSplashReady] = useState(false)
-
-  useEffect(() => {
-    setSplashReady(true)
-  }, [])
-
-  if (!isSplashReady) {
-    return null
-  }
-
-  return (
-    <View>
-      <Text>Splash</Text>
-    </View>
-  )
-}
+const AppContainer = styled.View`
+  flex: 1;
+`

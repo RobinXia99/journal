@@ -9,7 +9,7 @@ export const HeaderButtonBack: FC = () => {
 
   return (
     <Pressable onPress={goBack} hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}>
-      <Caret width={24} height={24} color={theme.color.grey} />
+      <Caret width={24} height={24} color={theme.color.white} />
     </Pressable>
   )
 }

@@ -3,7 +3,6 @@
  * https://reactnavigation.org/docs/typescript/
  */
 
-import { FirebaseAuthTypes } from '@react-native-firebase/auth'
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
@@ -16,11 +15,12 @@ declare global {
   }
 }
 
-export type RootStackParamList = HomeStackParams &
-  CL & {
-    Root: NavigatorScreenParams<RootTabParamList> | undefined
-    LoggedOutStart: undefined
-  }
+export type RootStackParamList = HomeStackParams & {
+  Root: NavigatorScreenParams<RootTabParamList> | undefined
+  LoggedOutStart: undefined
+  SignIn: undefined
+  SignUp: undefined
+}
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
   RootStackParamList,
@@ -31,7 +31,7 @@ export type RouteProps<Screen extends keyof RootStackParamList> = NativeStackScr
 
 export type RootTabParamList = {
   HomeTab: undefined
-  LeaderboardTab: undefined
+  StreakTab: undefined
   JournalTab: undefined
   ProfileTab: undefined
 }
@@ -39,15 +39,15 @@ export type RootTabParamList = {
 export type HomeStackParams = {
   Home: undefined
 }
-type CL = {
-  ComponentLibrary: undefined
-  Button: undefined
-  Input: undefined
-  DeviceComponents: undefined
-  StatsComponents: undefined
-  Components: undefined
+export type StreakStackParams = {
+  Streak: undefined
 }
-
+export type JournalStackParams = {
+  Journal: undefined
+}
+export type ProfileStackParams = {
+  Profile: undefined
+}
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
   BottomTabScreenProps<RootTabParamList, Screen>,
   NativeStackScreenProps<RootStackParamList>
