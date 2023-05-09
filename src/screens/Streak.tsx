@@ -1,10 +1,10 @@
 import { FC } from 'react'
 import { Text, View } from 'react-native'
 
-export const LoggedOutStartScreen: FC = () => {
+export const StreakScreen: FC = () => {
   return (
     <View>
-      <Text>Home</Text>
+      <Text>Streak</Text>
     </View>
   )
 }

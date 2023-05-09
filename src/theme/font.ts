@@ -5,6 +5,7 @@ export const fontSize = {
 }
 
 export const fontFamily = {
-  bold: 'manrope-bold',
-  regular: 'manrope-regular',
+  light: 'lato-light',
+  regular: 'lato-regular',
+  bold: 'lato-bold',
 }

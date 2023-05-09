@@ -9,8 +9,8 @@ export const defaultNavOptions: NativeStackNavigationOptions = {
   headerTitleAlign: 'center',
   headerBackVisible: false,
   headerTitleStyle: {
-    fontFamily: theme.fontFamily.bold,
-    color: theme.color.lightPink,
+    fontFamily: theme.fontFamily.regular,
+    color: theme.color.white,
     fontSize: theme.fontSize.default,
   },
   headerShown: true,

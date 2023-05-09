@@ -7,16 +7,24 @@ import { BottomTab } from '../../navigationUtils'
 import { HomeStack } from './tabs/Home'
 import { theme } from '../../../theme'
 import { Home } from '../../../components/icons/Home'
+import { StreakStack } from './tabs/Streak'
+import { JournalStack } from './tabs/Journal'
+import { ProfileStack } from './tabs/Profile'
+import { Profile } from '../../../components/icons/Profile'
+import { Calendar } from '../../../components/icons/Calendar'
+import { Stats } from '../../../components/icons/Stats'
 
 export const BottomTabNavigator = () => {
   return (
     <BottomTab.Navigator
       initialRouteName="HomeTab"
       screenOptions={{
-        tabBarActiveTintColor: theme.color.lightPink,
+        tabBarActiveTintColor: theme.color.purple,
         tabBarInactiveTintColor: theme.color.grey,
-        headerShown: false,
-        tabBarStyle: { backgroundColor: theme.color.darkPurple, paddingTop: theme.spacing.small },
+        headerShown: true,
+        headerStyle: { backgroundColor: theme.color.darkPurple },
+        headerTitleStyle: { color: theme.color.white },
+        tabBarStyle: { backgroundColor: theme.color.white, paddingTop: theme.spacing.small },
       }}
     >
       <BottomTab.Screen
@@ -28,27 +36,27 @@ export const BottomTabNavigator = () => {
         }}
       />
       <BottomTab.Screen
-        name="HomeTab"
-        component={HomeStack}
+        name="StreakTab"
+        component={StreakStack}
         options={{
-          title: 'Hem',
-          tabBarIcon: ({ color }) => <Home width={30} height={30} color={color} />,
+          title: 'Streak',
+          tabBarIcon: ({ color }) => <Stats width={30} height={30} color={color} />,
         }}
       />
       <BottomTab.Screen
-        name="HomeTab"
-        component={HomeStack}
+        name="JournalTab"
+        component={JournalStack}
         options={{
-          title: 'Hem',
-          tabBarIcon: ({ color }) => <Home width={30} height={30} color={color} />,
+          title: 'Dagbok',
+          tabBarIcon: ({ color }) => <Calendar width={22} height={22} color={color} />,
         }}
       />
       <BottomTab.Screen
-        name="HomeTab"
-        component={HomeStack}
+        name="ProfileTab"
+        component={ProfileStack}
         options={{
-          title: 'Hem',
-          tabBarIcon: ({ color }) => <Home width={30} height={30} color={color} />,
+          title: 'Profil',
+          tabBarIcon: ({ color }) => <Profile width={30} height={30} color={color} />,
         }}
       />
     </BottomTab.Navigator>
