@@ -21,6 +21,7 @@
     "@reduxjs/toolkit": "^1.9.3",
     "date-fns": "^2.29.3",
     "expo": "~48.0.15",
+    "expo-av": "^13.2.1",
     "expo-dev-client": "~2.2.1",
     "expo-device": "~5.2.1",
     "expo-font": "~11.1.1",
