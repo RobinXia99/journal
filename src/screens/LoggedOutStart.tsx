@@ -3,8 +3,12 @@ import styled from 'styled-components/native'
 import { theme } from '../theme'
 import { Button } from '../components/Button'
 import { useNavigation } from '@react-navigation/native'
+import { Onboarding } from '../components/Onboarding'
+import { useAppHasLaunched } from '../hooks/useAppHasLaunched'
 
 export const LoggedOutStartScreen: FC = () => {
+  const { hasLaunched, setHasLaunched } = useAppHasLaunched()
+
   const { navigate } = useNavigation()
 
   return (
@@ -22,6 +26,7 @@ export const LoggedOutStartScreen: FC = () => {
         background={theme.color.transparent}
         onPress={() => navigate('SignUp')}
       />
+      {!hasLaunched && <Onboarding setFinishedOnboarding={setHasLaunched} />}
     </Container>
   )
 }
