@@ -19,6 +19,7 @@
     "@react-navigation/native": "6.1.6",
     "@react-navigation/native-stack": "6.9.12",
     "@reduxjs/toolkit": "^1.9.3",
+    "@shopify/react-native-skia": "0.1.176",
     "date-fns": "^2.29.3",
     "expo": "~48.0.15",
     "expo-av": "^13.2.1",

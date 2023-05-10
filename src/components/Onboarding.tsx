@@ -84,8 +84,8 @@ export const Onboarding: FC<OnboardingProps> = ({ setFinishedOnboarding }) => {
       </CloseContainer>
       <PaginationContainer>
         <PaginationDot active={activeIndex === 0} />
-        <PaginationDot active={activeIndex === 1} style={{ marginLeft: theme.spacing.tiny, marginRight: 2 }} />
-        <PaginationDot active={activeIndex === 2} style={{ marginRight: theme.spacing.tiny, marginLeft: 2 }} />
+        <PaginationDot active={activeIndex === 1} style={{ marginLeft: theme.spacing.xsmall, marginRight: 4 }} />
+        <PaginationDot active={activeIndex === 2} style={{ marginRight: theme.spacing.xsmall, marginLeft: 4 }} />
         <PaginationDot active={activeIndex === 3} />
       </PaginationContainer>
     </Container>
