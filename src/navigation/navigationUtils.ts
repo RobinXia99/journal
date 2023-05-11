@@ -14,7 +14,7 @@ export const defaultNavOptions: NativeStackNavigationOptions = {
     fontSize: theme.fontSize.default,
   },
   headerShown: true,
-  headerStyle: { backgroundColor: theme.color.darkPurple },
+  headerStyle: { backgroundColor: theme.color.darkGreen },
 }
 
 export const modalOptions: NativeStackNavigationOptions = {

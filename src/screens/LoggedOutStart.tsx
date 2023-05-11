@@ -18,17 +18,13 @@ export const LoggedOutStartScreen: FC = () => {
     <Container>
       <Canvas style={{ width, height, position: 'absolute' }}>
         <Rect x={0} y={0} width={width} height={height}>
-          <LinearGradient
-            start={vec(0, 0)}
-            end={vec(0, height)}
-            colors={[theme.color.darkerPurple, theme.color.darkPurple, theme.color.purple, theme.color.lightPurple]}
-          />
+          <LinearGradient start={vec(0, 0)} end={vec(0, height)} colors={[theme.color.green, theme.color.lightGreen]} />
         </Rect>
       </Canvas>
       <Title>Journal</Title>
       <Button
         text="Logga in"
-        color={theme.color.purple}
+        color={theme.color.green}
         background={theme.color.white}
         onPress={() => navigate('SignIn')}
       />

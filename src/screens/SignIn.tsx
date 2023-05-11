@@ -35,8 +35,8 @@ export const SignInScreen: FC = () => {
       <InputField placeholder="Lösenord" input={password} onChangeText={setPassword} secureTextEntry></InputField>
       <Button
         text="Logga in"
-        background={theme.color.transparent}
-        color={theme.color.darkerPurple}
+        background={!validInput ? theme.color.transparent : theme.color.green}
+        color={!validInput ? theme.color.darkerGreen : theme.color.white}
         loading={loading}
         disabled={!validInput}
         onPress={() => signIn(email, password)}
@@ -59,7 +59,7 @@ const Container = styled.View`
   padding: ${theme.spacing.large}px;
 `
 const Title = styled.Text`
-  color: ${theme.color.darkPurple};
+  color: ${theme.color.darkGreen};
   font-size: 48px;
   padding: ${theme.spacing.large}px;
 `
@@ -67,13 +67,13 @@ const Title = styled.Text`
 const Divider = styled.View`
   height: 1px;
   width: 100%;
-  background-color: ${theme.color.darkerPurple};
+  background-color: ${theme.color.darkerGreen};
   margin: ${theme.spacing.medium}px;
 `
 
 const Label = styled.Text`
   font-size: ${theme.fontSize.default}px;
-  color: ${theme.color.darkPurple};
+  color: ${theme.color.darkGreen};
   text-align: center;
 `
 
