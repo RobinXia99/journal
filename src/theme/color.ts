@@ -15,4 +15,7 @@ export const color = {
   gray: '#D9D9D9',
   darkGray: '#1F2B44',
   transparent: 'transparent',
+  cardOrange: '#EC9A3A',
+  cardGreen: '#34C24C',
+  cardPink: '#EC8282',
 }

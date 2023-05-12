@@ -4,18 +4,51 @@ import styled from 'styled-components/native'
 import { theme } from '../theme'
 import { LinkTag } from '../components/LinkTag'
 import { AddImage } from '../components/AddImage'
+import { useNavigation } from '@react-navigation/native'
+import { CardType, ChallengeCard } from '../components/ChallengeCard'
 
 export const HomeScreen: FC = () => {
+  const { navigate } = useNavigation()
+
   return (
     <ScreenBase>
       <Title>Dokumentera dagen</Title>
-      <Divider />
-      <LinkTag title="Vad ser jag fram emot idag?" onPress={() => console.log('Clicked')} />
-      <LinkTag title="Vad är jag stolt/tacksam över idag?" onPress={() => console.log('Clicked2')} />
+      <Padding />
+      <LinkTag title="Vad ser jag fram emot idag?" onPress={() => navigate('StartOfDay', { id: '2' })} />
+      <LinkTag title="Vad är jag stolt/tacksam över idag?" onPress={() => navigate('EndOfDay', { id: '5' })} />
       <AddImage placeholder="Bildbeskrivning..." />
-      <CompletionContainer>
-        <Title>0/3</Title>
-      </CompletionContainer>
+
+      <Padding />
+      <Title>Utmaningar</Title>
+      <Padding />
+      <ChallengeCard
+        streak={0}
+        text="Lägga mig innan 11"
+        checked={true}
+        background={theme.color.darkerGreen}
+        cardType={CardType.check}
+      />
+      <ChallengeCard
+        streak={5}
+        text="Gå upp ur sängen innan 8"
+        checked={true}
+        background={theme.color.darkGreen}
+        cardType={CardType.check}
+      />
+      <ChallengeCard
+        streak={10}
+        text="Äta ett äpple varje dag"
+        checked={true}
+        background={theme.color.green}
+        cardType={CardType.check}
+      />
+      <ChallengeCard
+        streak={15}
+        text="Gå 10000 steg varje dag"
+        checked={true}
+        background={theme.color.lightGreen}
+        cardType={CardType.check}
+      />
     </ScreenBase>
   )
 }
@@ -26,16 +59,6 @@ const Title = styled.Text`
   color: ${theme.color.black};
 `
 
-const Divider = styled.View`
-  height: 1px;
-  width: 100%;
-  background-color: ${theme.color.darkGray};
-  margin: ${theme.spacing.large}px 0;
-`
-
-const CompletionContainer = styled.View`
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  padding: ${theme.spacing.large}px;
+const Padding = styled.View`
+  padding: ${theme.spacing.medium}px;
 `

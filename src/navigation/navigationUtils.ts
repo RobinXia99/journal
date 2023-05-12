@@ -9,12 +9,12 @@ export const defaultNavOptions: NativeStackNavigationOptions = {
   headerTitleAlign: 'center',
   headerBackVisible: false,
   headerTitleStyle: {
-    fontFamily: theme.fontFamily.regular,
+    fontFamily: theme.fontFamily.bold,
     color: theme.color.white,
     fontSize: theme.fontSize.default,
   },
   headerShown: true,
-  headerStyle: { backgroundColor: theme.color.darkGreen },
+  headerStyle: { backgroundColor: theme.color.darkerGreen },
 }
 
 export const modalOptions: NativeStackNavigationOptions = {
