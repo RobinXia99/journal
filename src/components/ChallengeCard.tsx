@@ -2,7 +2,7 @@ import styled from 'styled-components/native'
 import { theme } from '../theme'
 import { Star } from './icons/Star'
 import { CheckBox } from './CheckBox'
-import { FC, useState } from 'react'
+import { Dispatch, FC, SetStateAction, useState } from 'react'
 import { TextInput } from 'react-native'
 import { Delete } from './icons/Delete'
 
@@ -12,6 +12,8 @@ interface ChallengeCardProps {
   checked: boolean
   background: string
   cardType: CardType
+  textInput?: string
+  onChangeText?: Dispatch<SetStateAction<string>>
 }
 
 export enum CardType {
@@ -20,7 +22,15 @@ export enum CardType {
   delete = 'DELETE',
 }
 
-export const ChallengeCard: FC<ChallengeCardProps> = ({ streak, text, checked, background, cardType }) => {
+export const ChallengeCard: FC<ChallengeCardProps> = ({
+  streak,
+  text,
+  checked,
+  background,
+  cardType,
+  textInput,
+  onChangeText,
+}) => {
   const [isChecked, setIsChecked] = useState<boolean>(checked)
 
   const [deleteEnabled, setDeleteEnabled] = useState<boolean>(false)
@@ -32,7 +42,9 @@ export const ChallengeCard: FC<ChallengeCardProps> = ({ streak, text, checked, b
           <Star width={24} height={24} />
           <StreakLabel> Streak: {streak}</StreakLabel>
         </StreakRow>
-        {cardType === CardType.edit && <TextField placeholder="Beskrivning..."></TextField>}
+        {cardType === CardType.edit && (
+          <TextField placeholder="Beskrivning..." value={textInput} onChangeText={onChangeText}></TextField>
+        )}
         <ChallengeLabel>{text}</ChallengeLabel>
       </Column>
       <RightColumn>

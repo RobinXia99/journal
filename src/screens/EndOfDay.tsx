@@ -14,7 +14,10 @@ export const EndOfDayScreen: FC<RouteProps<'EndOfDay'>> = ({ route }) => {
   const { id } = route.params
 
   useEffect(() => {
-    setOptions({ title: 'Vad är jag stolt/tacksam över idag?', headerRight: () => <HeaderButtonSave /> })
+    setOptions({
+      title: 'Vad är jag stolt/tacksam över idag?',
+      headerRight: () => <HeaderButtonSave onPress={() => console.log('save')} />,
+    })
   }, [setOptions])
   return (
     <TextArea

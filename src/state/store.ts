@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import requestReducer from './request'
 import userReducer from './user'
+import challengeReducer from './challenge'
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
@@ -8,6 +9,7 @@ import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, 
 const combinedRootReducer = combineReducers({
   request: requestReducer,
   user: userReducer,
+  challenge: challengeReducer,
 })
 const persistConfig = {
   key: 'root',

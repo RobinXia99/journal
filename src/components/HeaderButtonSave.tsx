@@ -4,11 +4,20 @@ import { Pressable } from 'react-native'
 import { theme } from '../theme'
 import styled from 'styled-components/native'
 
-export const HeaderButtonSave: FC = () => {
+interface ButtonSaveProps {
+  onPress: () => void
+}
+
+export const HeaderButtonSave: FC<ButtonSaveProps> = ({ onPress }) => {
   const { goBack } = useNavigation()
 
+  const Save = () => {
+    onPress()
+    goBack()
+  }
+
   return (
-    <Pressable onPress={goBack} hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}>
+    <Pressable onPress={Save} hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}>
       <Label>Spara</Label>
     </Pressable>
   )

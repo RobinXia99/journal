@@ -14,7 +14,10 @@ export const StartOfDayScreen: FC<RouteProps<'StartOfDay'>> = ({ route }) => {
   const { id } = route.params
 
   useEffect(() => {
-    setOptions({ title: 'Vad ser jag fram emot idag?', headerRight: () => <HeaderButtonSave /> })
+    setOptions({
+      title: 'Vad ser jag fram emot idag?',
+      headerRight: () => <HeaderButtonSave onPress={() => console.log('save')} />,
+    })
   }, [setOptions])
   return (
     <TextArea
