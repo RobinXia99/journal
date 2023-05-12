@@ -25,22 +25,22 @@ export const Onboarding: FC<OnboardingProps> = ({ setFinishedOnboarding }) => {
   const videos: SlideProps[] = [
     {
       id: '1',
-      color: theme.color.darkerPurple,
+      color: theme.color.darkerGreen,
       text: 'Mår du dåligt?',
     },
     {
       id: '2',
-      color: theme.color.darkPurple,
+      color: theme.color.darkGreen,
       text: 'Känns allt meningslöst?',
     },
     {
       id: '3',
-      color: theme.color.purple,
+      color: theme.color.green,
       text: 'Du är inte ensam.',
     },
     {
       id: '4',
-      color: theme.color.lightPurple,
+      color: theme.color.lightGreen,
       text: 'Du KAN bli bättre.',
     },
   ]
@@ -95,13 +95,13 @@ export const Onboarding: FC<OnboardingProps> = ({ setFinishedOnboarding }) => {
 const Container = styled.View`
   justify-content: space-between;
   align-items: center;
-  background-color: ${theme.color.darkPurple};
+  background-color: ${theme.color.darkGreen};
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: ${theme.color.lighterPurple};
+  background-color: ${theme.color.lighterGreen};
 `
 
 const CloseContainer = styled.View`

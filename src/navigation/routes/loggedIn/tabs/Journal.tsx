@@ -8,7 +8,7 @@ export const JournalStack = () => {
 
   return (
     <Stack.Navigator screenOptions={{ ...defaultNavOptions }}>
-      <Stack.Screen name="Journal" component={JournalScreen} options={{ title: '', headerShown: false }} />
+      <Stack.Screen name="Journal" component={JournalScreen} options={{ title: 'Dagbok', headerShown: true }} />
     </Stack.Navigator>
   )
 }

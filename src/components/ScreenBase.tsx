@@ -28,6 +28,6 @@ export const ScreenBase: FC<ScreenBaseProps> = ({ children, backgroundColor }) =
 }
 
 export const StyledScrollView = styled.ScrollView<{ backgroundColor?: string }>`
-  padding: ${theme.spacing.xlarge}px ${theme.spacing.large}px 0;
-  background: ${(props) => props.backgroundColor || theme.color.lightGrey};
+  padding: ${theme.spacing.xlarge}px ${theme.spacing.medium}px 0;
+  background: ${(props) => props.backgroundColor || theme.color.lightGray};
 `

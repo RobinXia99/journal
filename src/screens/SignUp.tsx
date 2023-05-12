@@ -33,7 +33,7 @@ export const SignUpScreen: FC = () => {
       <Button
         text="Skapa konto"
         background={theme.color.transparent}
-        color={theme.color.darkerPurple}
+        color={theme.color.darkerGreen}
         disabled={!validInput}
         loading={loading}
         onPress={() => signUp(email, password)}
@@ -50,7 +50,7 @@ const Container = styled.View`
   padding: ${theme.spacing.large}px;
 `
 const Title = styled.Text`
-  color: ${theme.color.darkPurple};
+  color: ${theme.color.darkGreen};
   font-size: 48px;
   padding: ${theme.spacing.large}px;
 `

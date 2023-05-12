@@ -48,7 +48,7 @@ export const InputField: FC<InputField> = ({
           onEndEditing={() => setFocused(false)}
           keyboardType={keyboardType}
           placeholder={placeholder}
-          placeholderTextColor={theme.color.grey}
+          placeholderTextColor={theme.color.gray}
           value={input}
           onChangeText={onChangeText}
           selectionColor={theme.color.purple}
@@ -78,7 +78,7 @@ const InputContainer = styled.View<{
   padding: ${theme.spacing.medium}px ${theme.spacing.small}px;
   flex-grow: 1;
   background-color: ${(props) =>
-    props.disabled ? theme.color.lightGrey : props.darkMode ? theme.color.transparent : theme.color.white};
+    props.disabled ? theme.color.lightGray : props.darkMode ? theme.color.transparent : theme.color.white};
   margin: ${theme.spacing.xsmall}px 0 ${(props) => (props.error ? theme.spacing.xsmall : theme.spacing.medium)}px;
   border-radius: 50px;
   border: 1px solid ${theme.color.darkerPurple};
@@ -90,12 +90,12 @@ const InputContainer = styled.View<{
 const Input = styled(TextInput)`
   text-decoration: none;
   flex-grow: 1;
-  color: ${theme.color.darkGrey};
+  color: ${theme.color.darkGray};
   font-size: ${theme.fontSize.default}px;
   width: 90%;
 `
 const Label = styled.Text`
-  color: ${theme.color.grey};
+  color: ${theme.color.gray};
   font-size: ${theme.fontSize.small}px;
 `
 

@@ -15,12 +15,13 @@ declare global {
   }
 }
 
-export type RootStackParamList = HomeStackParams & {
-  Root: NavigatorScreenParams<RootTabParamList> | undefined
-  LoggedOutStart: undefined
-  SignIn: undefined
-  SignUp: undefined
-}
+export type RootStackParamList = HomeStackParams &
+  ChallengesStackParams & {
+    Root: NavigatorScreenParams<RootTabParamList> | undefined
+    LoggedOutStart: undefined
+    SignIn: undefined
+    SignUp: undefined
+  }
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
   RootStackParamList,
@@ -31,16 +32,19 @@ export type RouteProps<Screen extends keyof RootStackParamList> = NativeStackScr
 
 export type RootTabParamList = {
   HomeTab: undefined
-  StreakTab: undefined
+  ChallengeTab: undefined
   JournalTab: undefined
   ProfileTab: undefined
 }
 
 export type HomeStackParams = {
   Home: undefined
+  StartOfDay: { id?: string }
+  EndOfDay: { id?: string }
 }
-export type StreakStackParams = {
-  Streak: undefined
+export type ChallengesStackParams = {
+  Challenges: undefined
+  CreateChallenge: undefined
 }
 export type JournalStackParams = {
   Journal: undefined
@@ -48,6 +52,7 @@ export type JournalStackParams = {
 export type ProfileStackParams = {
   Profile: undefined
 }
+
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
   BottomTabScreenProps<RootTabParamList, Screen>,
   NativeStackScreenProps<RootStackParamList>

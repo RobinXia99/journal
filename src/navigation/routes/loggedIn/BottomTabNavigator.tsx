@@ -7,7 +7,7 @@ import { BottomTab } from '../../navigationUtils'
 import { HomeStack } from './tabs/Home'
 import { theme } from '../../../theme'
 import { Home } from '../../../components/icons/Home'
-import { StreakStack } from './tabs/Streak'
+import { ChallengeStack } from './tabs/Challenge'
 import { JournalStack } from './tabs/Journal'
 import { ProfileStack } from './tabs/Profile'
 import { Profile } from '../../../components/icons/Profile'
@@ -19,10 +19,10 @@ export const BottomTabNavigator = () => {
     <BottomTab.Navigator
       initialRouteName="HomeTab"
       screenOptions={{
-        tabBarActiveTintColor: theme.color.purple,
-        tabBarInactiveTintColor: theme.color.grey,
-        headerShown: true,
-        headerStyle: { backgroundColor: theme.color.darkPurple },
+        tabBarActiveTintColor: theme.color.green,
+        tabBarInactiveTintColor: '#C5C5C5',
+        headerShown: false,
+        headerStyle: { backgroundColor: theme.color.darkerGreen },
         headerTitleStyle: { color: theme.color.white },
         tabBarStyle: { backgroundColor: theme.color.white, paddingTop: theme.spacing.small },
       }}
@@ -36,10 +36,10 @@ export const BottomTabNavigator = () => {
         }}
       />
       <BottomTab.Screen
-        name="StreakTab"
-        component={StreakStack}
+        name="ChallengeTab"
+        component={ChallengeStack}
         options={{
-          title: 'Streak',
+          title: 'Utmaningar',
           tabBarIcon: ({ color }) => <Stats width={30} height={30} color={color} />,
         }}
       />
