@@ -1,7 +1,6 @@
 import { Dispatch, FC, SetStateAction } from 'react'
 import styled from 'styled-components/native'
 import { theme } from '../theme'
-import { Button } from 'react-native'
 
 interface AddImageProps {
   input?: string
@@ -71,12 +70,13 @@ const StyledTextInput = styled.TextInput`
   width: 100%;
   height: 70%;
   background-color: ${theme.color.lightGray};
+  font-size: ${theme.fontSize.default}px;
   border-radius: 5px;
   padding: 10px;
 `
 
 const StyledButton = styled.TouchableOpacity`
-  background-color: ${theme.color.green};
+  background-color: ${theme.color.darkGreen};
   align-items: center;
   justify-content: center;
   border-radius: 5px;
@@ -85,7 +85,7 @@ const StyledButton = styled.TouchableOpacity`
 
 const ButtonText = styled.Text`
   color: ${theme.color.white};
-  font-size: ${theme.fontSize.small}px;
-  font-family: ${theme.fontFamily.bold};
-  padding: ${theme.spacing.xsmall}px;
+  font-size: ${theme.fontSize.default}px;
+  font-family: ${theme.fontFamily.regular};
+  padding: ${theme.spacing.tiny}px;
 `

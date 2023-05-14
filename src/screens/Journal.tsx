@@ -16,7 +16,7 @@ export const JournalScreen: FC = () => {
           <LinearGradient
             start={vec(0, 0)}
             end={vec(0, height)}
-            colors={[theme.color.lighterGreen, theme.color.lightGray]}
+            colors={[theme.color.lighterGreen, theme.color.lightGreen]}
           />
         </Rect>
       </Canvas>

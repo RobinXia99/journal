@@ -6,19 +6,40 @@ import { TextInput } from 'react-native'
 import { RouteProps } from '../navigation/types'
 import { useNavigation } from '@react-navigation/native'
 import { HeaderButtonSave } from '../components/HeaderButtonSave'
+import { useAppDispatch, useAppSelector } from '../hooks/hooks'
+import { updateJournal, selectTodaysJournal } from '../state/journal'
 
-export const StartOfDayScreen: FC<RouteProps<'StartOfDay'>> = ({ route }) => {
+export const StartOfDayScreen: FC<RouteProps<'StartOfDay'>> = () => {
   const { setOptions } = useNavigation()
+  const todaysJournal = useAppSelector(selectTodaysJournal)
 
-  const [input, setInput] = useState<string>('')
-  const { id } = route.params
+  const dispatch = useAppDispatch()
+
+  const [input, setInput] = useState<string>(todaysJournal?.morningJournal || '')
+
+  console.log(todaysJournal)
 
   useEffect(() => {
+    const handleSave = () => {
+      if (input.length > 0) {
+        dispatch(
+          updateJournal({
+            documentId: todaysJournal?.documentId,
+            morningJournal: input,
+            nightJournal: todaysJournal?.nightJournal,
+            photo: todaysJournal?.photo,
+            photoText: todaysJournal?.photoText,
+            created_at: todaysJournal?.created_at,
+          })
+        )
+      }
+    }
     setOptions({
       title: 'Vad ser jag fram emot idag?',
-      headerRight: () => <HeaderButtonSave onPress={() => console.log('save')} />,
+      headerRight: () => <HeaderButtonSave onPress={() => handleSave()} />,
     })
-  }, [setOptions])
+  }, [setOptions, dispatch, input, todaysJournal])
+
   return (
     <TextArea
       placeholder={'Börja skriv här...'}

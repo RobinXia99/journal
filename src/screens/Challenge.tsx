@@ -6,9 +6,12 @@ import { useNavigation } from '@react-navigation/native'
 import { HeaderButtonAdd } from '../components/HeaderButtonAdd'
 import { Title, Undertitle } from '../components/Text'
 import styled from 'styled-components/native'
+import { useAppSelector } from '../hooks/hooks'
+import { selectChallenges } from '../state/challenge'
 
 export const ChallengeScreen: FC = () => {
   const { setOptions } = useNavigation()
+  const challenges = useAppSelector(selectChallenges)
 
   useEffect(() => {
     setOptions({ title: 'Utmaningar', headerRight: () => <HeaderButtonAdd /> })
@@ -19,20 +22,18 @@ export const ChallengeScreen: FC = () => {
       <Title>Utmaningar</Title>
       <Undertitle>Tryck och håll i korten för att ta bort</Undertitle>
       <Padding />
-      <ChallengeCard
-        background={theme.color.green}
-        streak={10}
-        checked={false}
-        text="Gå 10000 steg varje dag"
-        cardType={CardType.delete}
-      />
-      <ChallengeCard
-        background={theme.color.darkerGreen}
-        streak={0}
-        checked={false}
-        text="Äta ett äpple varje dag"
-        cardType={CardType.delete}
-      />
+      {challenges.length > 0 &&
+        challenges.map((challenge) => (
+          <ChallengeCard
+            key={challenge.documentId}
+            id={challenge.documentId}
+            streak={challenge.streak}
+            newCompletionDate={challenge.newCompletionDate}
+            checked={true}
+            text={challenge.text}
+            cardType={CardType.delete}
+          />
+        ))}
     </ScreenBase>
   )
 }

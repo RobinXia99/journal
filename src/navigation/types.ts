@@ -39,8 +39,8 @@ export type RootTabParamList = {
 
 export type HomeStackParams = {
   Home: undefined
-  StartOfDay: { id?: string }
-  EndOfDay: { id?: string }
+  StartOfDay: undefined
+  EndOfDay: undefined
 }
 export type ChallengesStackParams = {
   Challenges: undefined

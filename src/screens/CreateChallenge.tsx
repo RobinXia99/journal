@@ -27,9 +27,11 @@ export const CreateChallengeScreen: FC = () => {
       <Undertitle>Skapa en utmaning som du upprepar varje dag</Undertitle>
       <Padding />
       <ChallengeCard
-        background={theme.color.darkerGreen}
+        id="d"
         streak={0}
-        checked={false}
+        text=""
+        checked={true}
+        newCompletionDate=""
         cardType={CardType.edit}
         textInput={input}
         onChangeText={setInput}
