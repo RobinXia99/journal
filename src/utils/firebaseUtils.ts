@@ -2,18 +2,21 @@ import auth from '@react-native-firebase/auth'
 import { doc, getFirestore, setDoc } from 'firebase/firestore'
 import { firebaseApp } from '../config/firebase'
 
-export const authCreateAccount = async (email: string, password: string) => {
+export const authCreateAccount = async (firstName: string, email: string, password: string) => {
   try {
-    const user = auth().currentUser
-    const db = getFirestore(firebaseApp)
     await auth().createUserWithEmailAndPassword(email, password)
+    const db = getFirestore(firebaseApp)
+    const user = auth().currentUser
 
-    const docRef = await setDoc(doc(db, 'users', `${user?.uid}`), {
+    await setDoc(doc(db, 'users', `${user?.uid}`), {
       uid: user?.uid,
-      email: user?.email,
+      firstName,
+      email,
     })
 
-    console.log(`Created document: ${docRef}`)
+    await authSignIn(email, password)
+
+    console.log(`CREATE_ACCOUNT_SUCCESS`)
   } catch (error) {
     console.log('ERROR_SIGNUP', error)
   }

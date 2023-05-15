@@ -30,7 +30,7 @@ const Container = styled.TouchableOpacity<{ completed: boolean }>`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  background-color: ${(props) => (props.completed ? theme.color.darkGreen : theme.color.white)};
+  background-color: ${(props) => (props.completed ? theme.color.green : theme.color.white)};
   border-radius: 10px;
   shadow-opacity: 0.05;
   shadow-offset: 0px 2px;

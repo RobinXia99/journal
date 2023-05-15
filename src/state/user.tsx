@@ -7,11 +7,13 @@ import { firebaseApp } from '../config/firebase'
 
 export interface User {
   uid: string | null
+  firstName: string
   email: string | null
 }
 
 const initialState: User = {
   uid: null,
+  firstName: '',
   email: '',
 }
 
@@ -26,7 +28,9 @@ export const getUser = createAsyncThunk('user/getUser', async (_, { dispatch }) 
     const db = getFirestore(firebaseApp)
 
     const docRef = doc(db, 'users', `${user?.uid}`)
+    console.log('after docref', user?.uid, user?.email)
     const docSnap = await getDoc(docRef)
+    console.log('after docsnap', user?.uid)
 
     if (docSnap.exists()) {
       const user = docSnap.data() as User
@@ -43,6 +47,7 @@ export const user = createSlice({
   reducers: {
     loggedIn: (state, { payload }: PayloadAction<User>) => {
       state.uid = payload.uid
+      state.firstName = payload.firstName
       state.email = payload.email
     },
   },

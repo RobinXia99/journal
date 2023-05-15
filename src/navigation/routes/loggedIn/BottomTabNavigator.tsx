@@ -19,12 +19,12 @@ export const BottomTabNavigator = () => {
     <BottomTab.Navigator
       initialRouteName="HomeTab"
       screenOptions={{
-        tabBarActiveTintColor: theme.color.lightGreen,
+        tabBarActiveTintColor: theme.color.green,
         tabBarInactiveTintColor: '#C5C5C5',
         headerShown: false,
-        headerStyle: { backgroundColor: theme.color.darkerGreen },
-        headerTitleStyle: { color: theme.color.white },
-        tabBarStyle: { backgroundColor: theme.color.darkerGreen, paddingTop: theme.spacing.small },
+        headerStyle: { backgroundColor: theme.color.white },
+        headerTitleStyle: { color: theme.color.darkerGreen },
+        tabBarStyle: { backgroundColor: theme.color.white, paddingTop: theme.spacing.small },
       }}
     >
       <BottomTab.Screen

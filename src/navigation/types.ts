@@ -16,6 +16,7 @@ declare global {
 }
 
 export type RootStackParamList = HomeStackParams &
+  JournalStackParams &
   ChallengesStackParams & {
     Root: NavigatorScreenParams<RootTabParamList> | undefined
     LoggedOutStart: undefined
@@ -48,6 +49,7 @@ export type ChallengesStackParams = {
 }
 export type JournalStackParams = {
   Journal: undefined
+  InspectJournal: { id: string }
 }
 export type ProfileStackParams = {
   Profile: undefined

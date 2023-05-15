@@ -5,7 +5,7 @@ import styled from 'styled-components/native'
 import { TextInput } from 'react-native'
 import { RouteProps } from '../navigation/types'
 import { useNavigation } from '@react-navigation/native'
-import { HeaderButtonSave } from '../components/HeaderButtonSave'
+import { HeaderButtonText } from '../components/HeaderButtonText'
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import { updateJournal, selectTodaysJournal } from '../state/journal'
 
@@ -33,7 +33,7 @@ export const EndOfDayScreen: FC<RouteProps<'EndOfDay'>> = () => {
     }
     setOptions({
       title: 'Vad är jag stolt/tacksam över idag?',
-      headerRight: () => <HeaderButtonSave onPress={() => handleSave()} />,
+      headerRight: () => <HeaderButtonText onPress={() => handleSave()} text="Spara" />,
     })
   }, [setOptions, dispatch, input, todaysJournal])
   return (

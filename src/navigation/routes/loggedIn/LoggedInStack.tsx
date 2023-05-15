@@ -3,11 +3,12 @@ import { Stack } from '../../navigationUtils'
 import { BottomTabNavigator } from './BottomTabNavigator'
 import { useAppDispatch } from '../../../hooks/hooks'
 import { getChallenges } from '../../../state/challenge'
-import { getJournals } from '../../../state/journal'
+import { emptyState, getJournals } from '../../../state/journal'
 
 export const LoggedInRoutes = () => {
   const dispatch = useAppDispatch()
   useEffect(() => {
+    dispatch(emptyState())
     dispatch(getChallenges())
     dispatch(getJournals())
   }, [dispatch])

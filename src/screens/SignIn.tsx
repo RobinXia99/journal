@@ -7,6 +7,8 @@ import { Button } from '../components/Button'
 import { useNavigation } from '@react-navigation/native'
 import { validEmailExp } from '../utils/regularExpressions'
 import { authSignIn } from '../utils/firebaseUtils'
+import { useAppSelector } from '../hooks/hooks'
+import { selectUser } from '../state/user'
 
 export const SignInScreen: FC = () => {
   const { navigate } = useNavigation()
@@ -18,11 +20,13 @@ export const SignInScreen: FC = () => {
   const validPassword = password.length >= 6
   const validInput = validEmail && validPassword
 
+  const user = useAppSelector(selectUser)
+
   const signIn = async (email: string, password: string) => {
-    console.log(email, password)
     try {
       setLoading(true)
       await authSignIn(email, password)
+      console.log(user)
     } finally {
       setLoading(false)
     }

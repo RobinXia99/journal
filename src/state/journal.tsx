@@ -1,10 +1,11 @@
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit'
 import { getFirestore, doc, collection, setDoc, where, getDocs, query, deleteDoc, updateDoc } from 'firebase/firestore'
 import auth from '@react-native-firebase/auth'
 import { PURGE } from 'redux-persist'
 import { AppDispatch, RootState } from './store'
 import { firebaseApp } from '../config/firebase'
-import { isSameDay, addDays, isYesterday, isToday } from 'date-fns'
+import { isSameDay, addDays, isYesterday, isToday, getTime } from 'date-fns'
+import { groupedJournalsByMonth } from '../utils/dateUtils'
 
 export interface Journal {
   uid: string
@@ -14,6 +15,12 @@ export interface Journal {
   photo: string
   photoText: string
   created_at: string
+}
+
+export interface UniqueMonthJournals {
+  date: string
+  maxStreak: number
+  journals: Journal[]
 }
 
 interface initialState {
@@ -115,6 +122,10 @@ export const journal = createSlice({
     todaysJournal: (state, { payload }: PayloadAction<Journal>) => {
       state.todaysJournal = payload
     },
+    emptyState: (state) => {
+      state.todaysJournal = null
+      state.journals = []
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(PURGE, () => initialState)
@@ -123,9 +134,13 @@ export const journal = createSlice({
 
 // Selectors
 export const selectJournals = (state: RootState) => state.journal.journals
+export const selectJournalById = (id: string) =>
+  createSelector(selectJournals, (journals: Journal[]) => journals.find((journal) => journal.documentId === id))
 export const selectTodaysJournal = (state: RootState) => state.journal.todaysJournal
+export const selectUniqueMonthJournals = createSelector(selectJournals, (journals) => {
+  return groupedJournalsByMonth(journals)
+})
 
-// Action creators are generated for each case reducer function
-export const { retrievedJournals, todaysJournal } = journal.actions
+export const { retrievedJournals, todaysJournal, emptyState } = journal.actions
 
 export default journal.reducer

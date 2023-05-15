@@ -19,19 +19,23 @@ export const HomeScreen: FC = () => {
 
   return (
     <ScreenBase>
-      <Title>Dokumentera dagen</Title>
+      <Title onPress={() => console.log(todaysJournal)}>Dokumentera dagen</Title>
       <Padding />
       <LinkTag
         title="Vad ser jag fram emot idag?"
-        completed={todaysJournal?.morningJournal !== ''}
+        completed={todaysJournal !== null && todaysJournal?.morningJournal !== ''}
         onPress={() => navigate('StartOfDay')}
       />
       <LinkTag
         title="Vad är jag stolt/tacksam över idag?"
-        completed={todaysJournal?.nightJournal !== ''}
+        completed={todaysJournal !== null && todaysJournal?.nightJournal !== ''}
         onPress={() => navigate('EndOfDay')}
       />
-      <AddImage placeholder="Bildbeskrivning..." />
+      <AddImage
+        placeholder="Bildbeskrivning..."
+        completed={todaysJournal !== null && (todaysJournal?.photo !== '' || todaysJournal?.photoText !== '')}
+        journal={todaysJournal}
+      />
 
       <Padding />
       <Title>Utmaningar</Title>

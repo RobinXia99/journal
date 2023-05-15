@@ -4,7 +4,7 @@ import { ChallengesStackParams } from '../../../types'
 import { ChallengeScreen } from '../../../../screens/Challenge'
 import { HeaderButtonBack } from '../../../../components/HeaderButtonBack'
 import { CreateChallengeScreen } from '../../../../screens/CreateChallenge'
-import { HeaderButtonSave } from '../../../../components/HeaderButtonSave'
+import { HeaderButtonSave } from '../../../../components/HeaderButtonText'
 
 export const ChallengeStack = () => {
   const Stack = createNativeStackNavigator<ChallengesStackParams>()

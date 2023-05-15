@@ -4,7 +4,7 @@ import { CardType, ChallengeCard } from '../components/ChallengeCard'
 import { theme } from '../theme'
 import { Title, Undertitle } from '../components/Text'
 import styled from 'styled-components/native'
-import { HeaderButtonSave } from '../components/HeaderButtonSave'
+import { HeaderButtonText } from '../components/HeaderButtonText'
 import { useNavigation } from '@react-navigation/native'
 import { useAppDispatch } from '../hooks/hooks'
 import { createChallenge } from '../state/challenge'
@@ -18,7 +18,7 @@ export const CreateChallengeScreen: FC = () => {
   useEffect(() => {
     setOptions({
       title: 'Utmaningar',
-      headerRight: () => <HeaderButtonSave onPress={() => dispatch(createChallenge(input))} />,
+      headerRight: () => <HeaderButtonText onPress={() => dispatch(createChallenge(input))} text="Spara" />,
     })
   }, [setOptions, dispatch, input])
   return (

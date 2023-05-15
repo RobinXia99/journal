@@ -54,7 +54,7 @@ export const ChallengeCard: FC<ChallengeCardProps> = ({
     <Container background={streakColor(streak)} onLongPress={() => setDeleteEnabled((prev) => !prev)} checked={checked}>
       <Column>
         <StreakRow>
-          <Star width={24} height={24} color={checked ? theme.color.white : theme.color.darkGreen} />
+          <Star width={24} height={24} color={checked ? theme.color.white : theme.color.darkGray} />
           <StreakLabel checked={checked}> Streak: {streak}</StreakLabel>
         </StreakRow>
         {cardType === CardType.edit && (
@@ -115,14 +115,14 @@ const StreakRow = styled.View`
 `
 
 const StreakLabel = styled.Text<{ checked: boolean }>`
-  color: ${(props) => (props.checked ? theme.color.white : theme.color.darkGreen)};
-  font-size: ${theme.fontSize.default}px;
+  color: ${(props) => (props.checked ? theme.color.white : theme.color.darkGray)};
+  font-size: ${theme.fontSize.small}px;
   font-family: ${theme.fontFamily.regular};
 `
 
 const ChallengeLabel = styled.Text<{ checked: boolean }>`
   color: ${(props) => (props.checked ? theme.color.white : theme.color.darkGray)};
-  font-size: ${theme.fontSize.large}px;
+  font-size: ${theme.fontSize.default}px;
   font-family: ${theme.fontFamily.regular};
 `
 

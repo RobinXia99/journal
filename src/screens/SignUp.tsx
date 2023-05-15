@@ -5,8 +5,10 @@ import { theme } from '../theme'
 import { Button } from '../components/Button'
 import { validEmailExp } from '../utils/regularExpressions'
 import { authCreateAccount } from '../utils/firebaseUtils'
+import { useFirebaseAuth } from '../hooks/useFirebaseAuth'
 
 export const SignUpScreen: FC = () => {
+  const [firstName, setFirstName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
@@ -14,11 +16,10 @@ export const SignUpScreen: FC = () => {
   const validPassword = password.length >= 6
   const validInput = validEmail && validPassword
 
-  const signUp = async (email: string, password: string) => {
-    console.log(email, password)
+  const signUp = async (firstName: string, email: string, password: string) => {
     try {
       setLoading(true)
-      await authCreateAccount(email, password)
+      await authCreateAccount(firstName, email, password)
     } finally {
       setLoading(false)
     }
@@ -27,16 +28,17 @@ export const SignUpScreen: FC = () => {
   return (
     <Container>
       <Title>Skapa konto</Title>
+      <InputField placeholder="Förnamn" input={firstName} onChangeText={setFirstName}></InputField>
       <InputField placeholder="E-post" input={email} onChangeText={setEmail}></InputField>
       <InputField placeholder="Lösenord" input={password} onChangeText={setPassword} secureTextEntry></InputField>
 
       <Button
         text="Skapa konto"
-        background={theme.color.transparent}
-        color={theme.color.darkerGreen}
-        disabled={!validInput}
+        background={!validInput ? theme.color.transparent : theme.color.green}
+        color={!validInput ? theme.color.darkerGreen : theme.color.white}
         loading={loading}
-        onPress={() => signUp(email, password)}
+        disabled={!validInput}
+        onPress={() => signUp(firstName, email, password)}
       />
     </Container>
   )

@@ -8,6 +8,7 @@ import { Title, Undertitle } from '../components/Text'
 import styled from 'styled-components/native'
 import { useAppSelector } from '../hooks/hooks'
 import { selectChallenges } from '../state/challenge'
+import { EmptyState } from '../components/EmptyState'
 
 export const ChallengeScreen: FC = () => {
   const { setOptions } = useNavigation()
@@ -22,7 +23,7 @@ export const ChallengeScreen: FC = () => {
       <Title>Utmaningar</Title>
       <Undertitle>Tryck och håll i korten för att ta bort</Undertitle>
       <Padding />
-      {challenges.length > 0 &&
+      {challenges.length > 0 ? (
         challenges.map((challenge) => (
           <ChallengeCard
             key={challenge.documentId}
@@ -33,7 +34,10 @@ export const ChallengeScreen: FC = () => {
             text={challenge.text}
             cardType={CardType.delete}
           />
-        ))}
+        ))
+      ) : (
+        <EmptyState text="Du har inga utmaningar än!" />
+      )}
     </ScreenBase>
   )
 }
