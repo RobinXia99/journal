@@ -26,7 +26,7 @@ export const ModalScreen: FC<RouteProps<'Modal'>> = ({ route }) => {
     <Modal>
       <TransparentContainer onPress={goBack} />
       <Container>
-        <Title>Fortsätt så!</Title>
+        <Title>Bra jobbat!</Title>
         <StickerContainer>
           <StickerFrame source={{ uri: stickerPath }} resizeMode="contain" />
         </StickerContainer>

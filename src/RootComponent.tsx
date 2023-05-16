@@ -8,11 +8,14 @@ import { Navigation } from './navigation'
 import { injectStore } from './state/injectStore'
 import { firebase } from '@react-native-firebase/auth'
 import { firebaseConfig } from './config/firebase'
+import { LogBox } from 'react-native'
+LogBox.ignoreLogs(['Warning: ...']) // Ignore log notification by message
+LogBox.ignoreAllLogs() //Ignore all log notifications
 
 export const RootComponent: FC = () => {
   injectStore(store)
 
-  firebase.initializeApp(firebaseConfig)
+  // firebase.initializeApp(firebaseConfig)
 
   return (
     <Provider store={store}>

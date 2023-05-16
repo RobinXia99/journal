@@ -14,29 +14,18 @@ interface CheckBoxProps {
   newCompletionDate: string
 }
 
-export const CheckBox: FC<CheckBoxProps> = ({
-  isSelected,
-  setSelected,
-  text,
-  streak,
-  documentId,
-  newCompletionDate,
-}) => {
+export const CheckBox: FC<CheckBoxProps> = ({ isSelected, setSelected, text, streak, documentId }) => {
   const dispatch = useAppDispatch()
 
-  const handleCheck = (text: string, streak: number, documentId: string, newCompletionDate: string) => {
+  const handleCheck = (text: string, streak: number, documentId: string) => {
     if (!isSelected) {
       setSelected(true)
-      dispatch(updateChallenge({ text, streak, documentId, newCompletionDate }))
+      dispatch(updateChallenge({ text, streak, documentId }))
     }
   }
 
   return (
-    <ContainerCheck
-      isSelected={isSelected}
-      onPress={() => handleCheck(text, streak, documentId, newCompletionDate)}
-      activeOpacity={1}
-    >
+    <ContainerCheck isSelected={isSelected} onPress={() => handleCheck(text, streak, documentId)} activeOpacity={1}>
       <CheckMark width={18} height={18} color={theme.color.white} />
     </ContainerCheck>
   )

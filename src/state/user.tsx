@@ -59,8 +59,10 @@ export const updateUserStickers = createAsyncThunk<
     } else {
       const index = getState().user.stickers.indexOf(sticker)
       if (index !== -1) {
+        const newStickers = getState().user.stickers.slice() // Make a copy of the stickers array
+        newStickers.splice(index, 1)
         await updateDoc(docRef, {
-          stickers: [...getState().user.stickers].splice(index, 1),
+          stickers: newStickers,
         })
       }
     }
@@ -68,7 +70,7 @@ export const updateUserStickers = createAsyncThunk<
 
     dispatch(getUser())
   } catch (error) {
-    console.log('DOCUMENT_NOT_FOUND')
+    console.log('DOCUMENT_NOT_FOUND', error)
   }
 })
 

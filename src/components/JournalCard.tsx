@@ -5,11 +5,12 @@ import { useNavigation } from '@react-navigation/native'
 
 interface JournalCardProps {
   img: string
+  sticker: string
   date: string
   id: string
 }
 
-export const JournalCard: FC<JournalCardProps> = ({ img, date, id }) => {
+export const JournalCard: FC<JournalCardProps> = ({ img, sticker, date, id }) => {
   const { navigate } = useNavigation()
   return (
     <Container>
@@ -20,14 +21,17 @@ export const JournalCard: FC<JournalCardProps> = ({ img, date, id }) => {
           }}
         />
         <DecorationFrame>
-          {/* <DecorationStickerRow>
-            <DecorationSticker />
-          </DecorationStickerRow> */}
           <DecorationLinesContainer>
             <DecorationLine />
             <DecorationLine />
-            <DecorationLine />
-            <DecorationLine />
+            {sticker ? (
+              <DecorationSticker source={{ uri: sticker }} />
+            ) : (
+              <>
+                <DecorationLine />
+                <DecorationLine />
+              </>
+            )}
           </DecorationLinesContainer>
         </DecorationFrame>
       </Card>
@@ -69,19 +73,13 @@ const DecorationFrame = styled.View`
   align-items: center;
 `
 
-// const DecorationStickerRow = styled.View`
-//   width: 95%;
-//   justify-content: flex-end;
-//   align-items: center;
-//   flex-direction: row;
-// `
-
-// const DecorationSticker = styled.View`
-//   width: 15px;
-//   height: 15px;
-//   border-radius: 2px;
-//   background-color: ${theme.color.lightGray};
-// `
+const DecorationSticker = styled.Image`
+  width: 40px;
+  height: 40px;
+  shadow-opacity: 0.15;
+  shadow-radius: 3px;
+  shadow-offset: 0px 0px;
+`
 
 const DecorationLinesContainer = styled.View`
   width: 95%;

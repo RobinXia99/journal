@@ -14,7 +14,6 @@ export const JournalScreen: FC = () => {
   const { height, width } = Dimensions.get('screen')
 
   const uniqueMonthJournals = useAppSelector(selectUniqueMonthJournals)
-  console.log(uniqueMonthJournals)
 
   return (
     <View style={{ flex: 1 }}>
@@ -37,6 +36,7 @@ export const JournalScreen: FC = () => {
                     <JournalCard
                       key={journal.documentId}
                       img={journal.photo}
+                      sticker={journal.sticker}
                       date={format(new Date(journal.created_at), 'yyyy-MM-dd')}
                       id={journal.documentId}
                     />

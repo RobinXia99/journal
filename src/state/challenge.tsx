@@ -53,6 +53,8 @@ export const getChallenges = createAsyncThunk('challenge/getChallenges', async (
       }
     })
 
+    userChallenges.sort((a, b) => b.streak - a.streak)
+
     dispatch(retrievedChallenges(userChallenges))
     console.log('GET_CHALLENGES_SUCCESS')
   } catch (error) {
@@ -129,7 +131,7 @@ export const updateChallenge = createAsyncThunk<
         documentId,
         text,
         streak: streak + 1,
-        rewardAvailable: true,
+        rewardAvailable: false,
         newCompletionDate: new Date().toISOString(),
       })
     }

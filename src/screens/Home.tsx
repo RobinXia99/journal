@@ -19,7 +19,7 @@ export const HomeScreen: FC = () => {
 
   return (
     <ScreenBase>
-      <Title onPress={() => console.log(todaysJournal)}>Dokumentera dagen</Title>
+      <Title>Dokumentera dagen</Title>
       <Padding />
       <LinkTag
         title="Vad ser jag fram emot idag?"

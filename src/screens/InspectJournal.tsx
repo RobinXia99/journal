@@ -19,17 +19,17 @@ export const InspectJournalScreen: FC<RouteProps<'InspectJournal'>> = ({ route }
 
   const journal = useAppSelector(selectJournalById(id))
 
-  const [selectedSticker, setSelectedSticker] = useState<string>('')
+  const [selectedSticker, setSelectedSticker] = useState<string>(journal?.sticker || '')
 
   useEffect(() => {
     setOptions({
-      title: format(new Date(journal?.created_at || ''), 'yyyy-MM-dd'),
+      title: journal?.created_at ? format(new Date(journal?.created_at), 'yyyy-MM-dd') : '',
     })
   }, [setOptions, journal])
 
   const handlePlaceSticker = () => {
     if (!journal?.sticker) {
-      navigate('AddStickerModal', { id })
+      navigate('AddStickerModal', { id, onChangeSticker: setSelectedSticker })
     }
   }
 
@@ -53,8 +53,8 @@ export const InspectJournalScreen: FC<RouteProps<'InspectJournal'>> = ({ route }
         <BodyText>{journal?.nightJournal}</BodyText>
         <StickerContainer>
           <StickerFrame onPress={() => handlePlaceSticker()}>
-            {journal?.sticker ? (
-              <Sticker source={{ uri: journal.sticker }} />
+            {selectedSticker ? (
+              <Sticker source={{ uri: selectedSticker }} />
             ) : (
               <AddStickerLabel>Placera klistermärke</AddStickerLabel>
             )}
@@ -120,7 +120,7 @@ const StickerContainer = styled.View`
 const StickerFrame = styled.TouchableOpacity`
   width: 130px;
   height: 130px;
-  background-color: ${theme.color.gray};
+  background-color: ${theme.color.lightGray};
   border-radius: 5px;
   justify-content: center;
   align-items: center;

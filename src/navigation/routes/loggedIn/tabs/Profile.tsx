@@ -15,7 +15,7 @@ export const ProfileStack = () => {
         name="Profile"
         component={ProfileScreen}
         options={{
-          title: 'Profil',
+          title: 'Din profil',
           headerShown: true,
           headerRight: () => (
             <HeaderButtonText

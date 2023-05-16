@@ -6,6 +6,7 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { Dispatch, SetStateAction } from 'react'
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -23,7 +24,7 @@ export type RootStackParamList = HomeStackParams &
     SignIn: undefined
     SignUp: undefined
     Modal: { id?: string }
-    AddStickerModal: { id?: string }
+    AddStickerModal: { id?: string; onChangeSticker: Dispatch<SetStateAction<string>> }
   }
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<

@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from './store'
 import { firebaseApp } from '../config/firebase'
 import { isToday } from 'date-fns'
 import { groupedJournalsByMonth } from '../utils/dateUtils'
+import { updateUserStickers } from './user'
 
 export interface Journal {
   uid: string
@@ -123,6 +124,30 @@ export const updateJournal = createAsyncThunk<
     }
   }
 )
+
+export const placeSticker = createAsyncThunk<
+  Promise<void>,
+  {
+    documentId?: string
+    sticker?: string
+  },
+  { dispatch: AppDispatch; state: RootState }
+>('journal/updateJournal', async ({ documentId = '', sticker = '' }, { dispatch }) => {
+  try {
+    const db = getFirestore(firebaseApp)
+
+    const docRef = doc(db, 'journals', documentId)
+
+    await updateDoc(docRef, {
+      sticker,
+    })
+    console.log('PLACE_STICKER_SUCCESS')
+    dispatch(updateUserStickers({ sticker, addSticker: false }))
+    dispatch(getJournals())
+  } catch (error) {
+    console.log('ERROR_SIGNUP', error)
+  }
+})
 
 export const journal = createSlice({
   name: 'journal',
