@@ -81,10 +81,11 @@ const InputContainer = styled.View<{
     props.disabled ? theme.color.lightGray : props.darkMode ? theme.color.transparent : theme.color.white};
   margin: ${theme.spacing.xsmall}px 0 ${(props) => (props.error ? theme.spacing.xsmall : theme.spacing.medium)}px;
   border-radius: 50px;
-  border: 1px solid ${theme.color.darkerPurple};
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
+  border-bottom: 1px solid black;
+  border: 0.5px solid ${theme.color.darkGray};
 `
 
 const Input = styled(TextInput)`
@@ -95,7 +96,7 @@ const Input = styled(TextInput)`
   width: 90%;
 `
 const Label = styled.Text`
-  color: ${theme.color.gray};
+  color: ${theme.color.darkGray};
   font-size: ${theme.fontSize.small}px;
 `
 

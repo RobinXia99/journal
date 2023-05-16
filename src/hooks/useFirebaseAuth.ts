@@ -13,8 +13,9 @@ export const useFirebaseAuth = () => {
 
   useEffect(() => {
     const unsubscribeFromAuthStatusChanged = auth().onAuthStateChanged((user) => {
-      if (user) getLoggedInUser()
-      else persistor.purge()
+      if (user) {
+        getLoggedInUser()
+      } else persistor.purge()
     })
 
     return unsubscribeFromAuthStatusChanged

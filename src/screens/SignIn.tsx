@@ -1,5 +1,4 @@
 import { FC, useState } from 'react'
-import { View } from 'react-native'
 import styled from 'styled-components/native'
 import { InputField } from '../components/Input'
 import { theme } from '../theme'
@@ -7,6 +6,8 @@ import { Button } from '../components/Button'
 import { useNavigation } from '@react-navigation/native'
 import { validEmailExp } from '../utils/regularExpressions'
 import { authSignIn } from '../utils/firebaseUtils'
+import { useAppSelector } from '../hooks/hooks'
+import { selectUser } from '../state/user'
 
 export const SignInScreen: FC = () => {
   const { navigate } = useNavigation()
@@ -18,11 +19,13 @@ export const SignInScreen: FC = () => {
   const validPassword = password.length >= 6
   const validInput = validEmail && validPassword
 
+  const user = useAppSelector(selectUser)
+
   const signIn = async (email: string, password: string) => {
-    console.log(email, password)
     try {
       setLoading(true)
       await authSignIn(email, password)
+      console.log(user)
     } finally {
       setLoading(false)
     }
@@ -30,23 +33,23 @@ export const SignInScreen: FC = () => {
 
   return (
     <Container>
-      <Title>Logga in</Title>
-      <InputField placeholder="E-post" input={email} onChangeText={setEmail}></InputField>
-      <InputField placeholder="Lösenord" input={password} onChangeText={setPassword} secureTextEntry></InputField>
+      <TitleContainer>
+        <Title>Logga in</Title>
+      </TitleContainer>
+      <InputField placeholder="E-post" input={email} onChangeText={setEmail} label="E-post" />
+      <InputField placeholder="Lösenord" input={password} onChangeText={setPassword} secureTextEntry label="Lösenord" />
       <Button
         text="Logga in"
         background={!validInput ? theme.color.transparent : theme.color.green}
-        color={!validInput ? theme.color.darkerGreen : theme.color.white}
+        color={!validInput ? theme.color.darkGray : theme.color.white}
         loading={loading}
         disabled={!validInput}
         onPress={() => signIn(email, password)}
       />
       <Divider />
-      <View>
-        <Label>
-          Har du inget konto? <UnderlinedLabel onPress={() => navigate('SignUp')}>Skapa konto</UnderlinedLabel>
-        </Label>
-      </View>
+      <Label>
+        Har du inget konto? <UnderlinedLabel onPress={() => navigate('SignUp')}>Skapa konto</UnderlinedLabel>
+      </Label>
     </Container>
   )
 }
@@ -54,27 +57,35 @@ export const SignInScreen: FC = () => {
 const Container = styled.View`
   width: 100%;
   height: 100%;
-  justify-content: center;
   align-items: center;
   padding: ${theme.spacing.large}px;
 `
+
+const TitleContainer = styled.View`
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  padding: ${theme.spacing.xlarge}px 0;
+  margin-top: 100px;
+`
+
 const Title = styled.Text`
-  color: ${theme.color.darkGreen};
-  font-size: 48px;
-  padding: ${theme.spacing.large}px;
+  color: ${theme.color.darkGray};
+  font-size: ${theme.fontSize.xlarge}px;
 `
 
 const Divider = styled.View`
   height: 1px;
   width: 100%;
-  background-color: ${theme.color.darkerGreen};
+  background-color: ${theme.color.darkGray};
   margin: ${theme.spacing.medium}px;
 `
 
 const Label = styled.Text`
   font-size: ${theme.fontSize.default}px;
-  color: ${theme.color.darkGreen};
+  color: ${theme.color.darkGray};
   text-align: center;
+  margin-bottom: ${theme.spacing.xxlarge}px;
 `
 
 const UnderlinedLabel = styled.Text`

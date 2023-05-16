@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import styled from 'styled-components/native'
 import { theme } from '../theme'
+import { useNavigation } from '@react-navigation/native'
 
 interface JournalCardProps {
   img: string
@@ -9,19 +10,23 @@ interface JournalCardProps {
 }
 
 export const JournalCard: FC<JournalCardProps> = ({ img, date, id }) => {
+  const { navigate } = useNavigation()
   return (
     <Container>
-      <Card key={id}>
+      <Card key={id} onPress={() => navigate('InspectJournal', { id })}>
         <ImageFrame
-          source={{ uri: 'https://media-cdn.tripadvisor.com/media/photo-s/1c/09/3e/f4/riverside-by-aahma.jpg' }}
+          source={{
+            uri: img,
+          }}
         />
         <DecorationFrame>
-          <DecorationStickerRow>
+          {/* <DecorationStickerRow>
             <DecorationSticker />
-          </DecorationStickerRow>
+          </DecorationStickerRow> */}
           <DecorationLinesContainer>
             <DecorationLine />
-            <DecorationLine style={{ marginVertical: 5 }} />
+            <DecorationLine />
+            <DecorationLine />
             <DecorationLine />
           </DecorationLinesContainer>
         </DecorationFrame>
@@ -60,21 +65,23 @@ const ImageFrame = styled.Image`
 const DecorationFrame = styled.View`
   height: 85px;
   width: 80px;
-`
-
-const DecorationStickerRow = styled.View`
-  width: 95%;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-  flex-direction: row;
 `
 
-const DecorationSticker = styled.View`
-  width: 15px;
-  height: 15px;
-  border-radius: 2px;
-  background-color: ${theme.color.lightGray};
-`
+// const DecorationStickerRow = styled.View`
+//   width: 95%;
+//   justify-content: flex-end;
+//   align-items: center;
+//   flex-direction: row;
+// `
+
+// const DecorationSticker = styled.View`
+//   width: 15px;
+//   height: 15px;
+//   border-radius: 2px;
+//   background-color: ${theme.color.lightGray};
+// `
 
 const DecorationLinesContainer = styled.View`
   width: 95%;
@@ -84,10 +91,11 @@ const DecorationLinesContainer = styled.View`
 `
 
 const DecorationLine = styled.View`
-  width: 60%;
+  width: 80%;
   height: 5px;
   background-color: ${theme.color.lightGray};
   border-radius: 2px;
+  margin: ${theme.spacing.tiny}px 0;
 `
 
 const CardLabel = styled.Text`

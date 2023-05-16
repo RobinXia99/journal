@@ -7,6 +7,7 @@ import { validEmailExp } from '../utils/regularExpressions'
 import { authCreateAccount } from '../utils/firebaseUtils'
 
 export const SignUpScreen: FC = () => {
+  const [firstName, setFirstName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
@@ -14,11 +15,10 @@ export const SignUpScreen: FC = () => {
   const validPassword = password.length >= 6
   const validInput = validEmail && validPassword
 
-  const signUp = async (email: string, password: string) => {
-    console.log(email, password)
+  const signUp = async (firstName: string, email: string, password: string) => {
     try {
       setLoading(true)
-      await authCreateAccount(email, password)
+      await authCreateAccount(firstName, email, password)
     } finally {
       setLoading(false)
     }
@@ -26,17 +26,20 @@ export const SignUpScreen: FC = () => {
 
   return (
     <Container>
-      <Title>Skapa konto</Title>
-      <InputField placeholder="E-post" input={email} onChangeText={setEmail}></InputField>
-      <InputField placeholder="Lösenord" input={password} onChangeText={setPassword} secureTextEntry></InputField>
+      <TitleContainer>
+        <Title>Skapa konto</Title>
+      </TitleContainer>
+      <InputField placeholder="Förnamn" input={firstName} onChangeText={setFirstName} label="Förnamn" />
+      <InputField placeholder="E-post" input={email} onChangeText={setEmail} label="E-post" />
+      <InputField placeholder="Lösenord" input={password} onChangeText={setPassword} secureTextEntry label="Lösenord" />
 
       <Button
         text="Skapa konto"
-        background={theme.color.transparent}
-        color={theme.color.darkerGreen}
-        disabled={!validInput}
+        background={!validInput ? theme.color.transparent : theme.color.green}
+        color={!validInput ? theme.color.darkGray : theme.color.white}
         loading={loading}
-        onPress={() => signUp(email, password)}
+        disabled={!validInput}
+        onPress={() => signUp(firstName, email, password)}
       />
     </Container>
   )
@@ -45,12 +48,18 @@ export const SignUpScreen: FC = () => {
 const Container = styled.View`
   width: 100%;
   height: 100%;
-  justify-content: center;
   align-items: center;
   padding: ${theme.spacing.large}px;
 `
+const TitleContainer = styled.View`
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  padding: ${theme.spacing.xlarge}px 0;
+  margin-top: 100px;
+`
+
 const Title = styled.Text`
-  color: ${theme.color.darkGreen};
-  font-size: 48px;
-  padding: ${theme.spacing.large}px;
+  color: ${theme.color.darkGray};
+  font-size: ${theme.fontSize.xlarge}px;
 `

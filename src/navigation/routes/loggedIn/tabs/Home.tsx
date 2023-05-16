@@ -4,7 +4,6 @@ import { defaultNavOptions } from '../../../navigationUtils'
 import { HomeStackParams } from '../../../types'
 import { HeaderButtonBack } from '../../../../components/HeaderButtonBack'
 import { StartOfDayScreen } from '../../../../screens/StartOfDay'
-import { HeaderButtonSave } from '../../../../components/HeaderButtonSave'
 import { EndOfDayScreen } from '../../../../screens/EndOfDay'
 
 export const HomeStack = () => {

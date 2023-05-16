@@ -6,49 +6,53 @@ import { LinkTag } from '../components/LinkTag'
 import { AddImage } from '../components/AddImage'
 import { useNavigation } from '@react-navigation/native'
 import { CardType, ChallengeCard } from '../components/ChallengeCard'
+import { useAppSelector } from '../hooks/hooks'
+import { selectChallenges } from '../state/challenge'
+import { isSameDay } from 'date-fns'
+import { selectTodaysJournal } from '../state/journal'
 
 export const HomeScreen: FC = () => {
   const { navigate } = useNavigation()
+  const todaysJournal = useAppSelector(selectTodaysJournal)
+
+  const challenges = useAppSelector(selectChallenges)
 
   return (
     <ScreenBase>
-      <Title>Dokumentera dagen</Title>
+      <Title onPress={() => console.log(todaysJournal)}>Dokumentera dagen</Title>
       <Padding />
-      <LinkTag title="Vad ser jag fram emot idag?" onPress={() => navigate('StartOfDay', { id: '2' })} />
-      <LinkTag title="Vad är jag stolt/tacksam över idag?" onPress={() => navigate('EndOfDay', { id: '5' })} />
-      <AddImage placeholder="Bildbeskrivning..." />
+      <LinkTag
+        title="Vad ser jag fram emot idag?"
+        completed={todaysJournal !== null && todaysJournal?.morningJournal !== ''}
+        onPress={() => navigate('StartOfDay')}
+      />
+      <LinkTag
+        title="Vad är jag stolt/tacksam över idag?"
+        completed={todaysJournal !== null && todaysJournal?.nightJournal !== ''}
+        onPress={() => navigate('EndOfDay')}
+      />
+      <AddImage
+        placeholder="Bildbeskrivning..."
+        completed={todaysJournal !== null && (todaysJournal?.photo !== '' || todaysJournal?.photoText !== '')}
+        journal={todaysJournal}
+      />
 
       <Padding />
       <Title>Utmaningar</Title>
       <Padding />
-      <ChallengeCard
-        streak={0}
-        text="Lägga mig innan 11"
-        checked={true}
-        background={theme.color.darkerGreen}
-        cardType={CardType.check}
-      />
-      <ChallengeCard
-        streak={5}
-        text="Gå upp ur sängen innan 8"
-        checked={true}
-        background={theme.color.darkGreen}
-        cardType={CardType.check}
-      />
-      <ChallengeCard
-        streak={10}
-        text="Äta ett äpple varje dag"
-        checked={true}
-        background={theme.color.green}
-        cardType={CardType.check}
-      />
-      <ChallengeCard
-        streak={15}
-        text="Gå 10000 steg varje dag"
-        checked={true}
-        background={theme.color.lightGreen}
-        cardType={CardType.check}
-      />
+      {challenges.length > 0 &&
+        challenges.map((challenge) => (
+          <ChallengeCard
+            key={challenge.documentId}
+            id={challenge.documentId}
+            newCompletionDate={challenge.newCompletionDate}
+            rewardAvailable={challenge.rewardAvailable}
+            streak={challenge.streak}
+            checked={isSameDay(new Date(), new Date(challenge.newCompletionDate))}
+            text={challenge.text}
+            cardType={CardType.check}
+          />
+        ))}
     </ScreenBase>
   )
 }

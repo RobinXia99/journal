@@ -16,11 +16,14 @@ declare global {
 }
 
 export type RootStackParamList = HomeStackParams &
+  JournalStackParams &
   ChallengesStackParams & {
     Root: NavigatorScreenParams<RootTabParamList> | undefined
     LoggedOutStart: undefined
     SignIn: undefined
     SignUp: undefined
+    Modal: { id?: string }
+    AddStickerModal: { id?: string }
   }
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
@@ -39,8 +42,8 @@ export type RootTabParamList = {
 
 export type HomeStackParams = {
   Home: undefined
-  StartOfDay: { id?: string }
-  EndOfDay: { id?: string }
+  StartOfDay: undefined
+  EndOfDay: undefined
 }
 export type ChallengesStackParams = {
   Challenges: undefined
@@ -48,6 +51,7 @@ export type ChallengesStackParams = {
 }
 export type JournalStackParams = {
   Journal: undefined
+  InspectJournal: { id: string }
 }
 export type ProfileStackParams = {
   Profile: undefined

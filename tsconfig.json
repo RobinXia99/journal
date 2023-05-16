@@ -3,6 +3,19 @@
   "typeRoots": ["node_modules/@types"],
   "compilerOptions": {
     "noErrorTruncation": true,
-    "strict": true
+    "strict": true,
+    "plugins": [
+      {
+        "name": "typescript-styled-plugin",
+        "lint": {
+          "validProperties": [
+            "shadow-color",
+            "shadow-opacity",
+            "shadow-offset",
+            "shadow-radius",
+          ]
+        }
+      }
+    ]
   }
 }

@@ -21,7 +21,7 @@ export const LoggedOutStartScreen: FC = () => {
           <LinearGradient start={vec(0, 0)} end={vec(0, height)} colors={[theme.color.green, theme.color.lightGreen]} />
         </Rect>
       </Canvas>
-      <Title>Journal</Title>
+      <ImageFrame source={require('../assets/images/dagbok.png')} resizeMode="cover" />
       <Button
         text="Logga in"
         color={theme.color.green}
@@ -48,8 +48,7 @@ const Container = styled.View`
   padding: ${theme.spacing.xlarge}px;
 `
 
-const Title = styled.Text`
-  color: ${theme.color.white};
-  font-size: 48px;
-  padding: ${theme.spacing.large}px;
+const ImageFrame = styled.Image`
+  width: 300px;
+  height: 300px;
 `

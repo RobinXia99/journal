@@ -12,7 +12,7 @@ import { JournalStack } from './tabs/Journal'
 import { ProfileStack } from './tabs/Profile'
 import { Profile } from '../../../components/icons/Profile'
 import { Calendar } from '../../../components/icons/Calendar'
-import { Stats } from '../../../components/icons/Stats'
+import { Star } from '../../../components/icons/Star'
 
 export const BottomTabNavigator = () => {
   return (
@@ -22,8 +22,8 @@ export const BottomTabNavigator = () => {
         tabBarActiveTintColor: theme.color.green,
         tabBarInactiveTintColor: '#C5C5C5',
         headerShown: false,
-        headerStyle: { backgroundColor: theme.color.darkerGreen },
-        headerTitleStyle: { color: theme.color.white },
+        headerStyle: { backgroundColor: theme.color.white },
+        headerTitleStyle: { color: theme.color.darkerGreen },
         tabBarStyle: { backgroundColor: theme.color.white, paddingTop: theme.spacing.small },
       }}
     >
@@ -40,7 +40,7 @@ export const BottomTabNavigator = () => {
         component={ChallengeStack}
         options={{
           title: 'Utmaningar',
-          tabBarIcon: ({ color }) => <Stats width={30} height={30} color={color} />,
+          tabBarIcon: ({ color }) => <Star width={28} height={28} color={color} />,
         }}
       />
       <BottomTab.Screen
