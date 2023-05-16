@@ -35,7 +35,7 @@ const StyledText = styled.Text<{ color: string }>`
 const ButtonBase = styled(TouchableOpacity)<{ color: string; background: string }>`
   background: ${(props) => props.background};
   color: ${(props) => props.color};
-  border: 1px solid ${(props) => props.color};
+  border: 0.5px solid ${(props) => props.color};
   border-radius: 50px;
   width: 100%;
   padding: ${theme.spacing.medium}px;

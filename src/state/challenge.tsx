@@ -4,13 +4,15 @@ import auth from '@react-native-firebase/auth'
 import { PURGE } from 'redux-persist'
 import { AppDispatch, RootState } from './store'
 import { firebaseApp } from '../config/firebase'
-import { isSameDay, addDays, isYesterday, isToday } from 'date-fns'
+import { isYesterday, isToday } from 'date-fns'
+import { updateUserStickers } from './user'
 
 export interface Challenge {
   uid: string
   documentId: string
   text: string
   streak: number
+  rewardAvailable: boolean
   newCompletionDate: string
 }
 
@@ -54,7 +56,7 @@ export const getChallenges = createAsyncThunk('challenge/getChallenges', async (
     dispatch(retrievedChallenges(userChallenges))
     console.log('GET_CHALLENGES_SUCCESS')
   } catch (error) {
-    console.log('ERROR_SIGNUP', error)
+    console.log('ERROR_GET_CHALLENGES', error)
   }
 })
 
@@ -71,15 +73,15 @@ export const createChallenge = createAsyncThunk<Promise<void>, string, { dispatc
         documentId: newDocRef.id,
         text,
         streak: 0,
+        rewardAvailable: false,
         newCompletionDate: '',
-        prevCompletionDate: '',
       })
 
       dispatch(getChallenges())
 
       console.log('CREATE_CHALLENGE_SUCCESS')
     } catch (error) {
-      console.log('ERROR_SIGNUP', error)
+      console.log('ERROR_CREATE_CHALLENGE', error)
     }
   }
 )
@@ -96,47 +98,71 @@ export const deleteChallenge = createAsyncThunk<Promise<void>, string, { dispatc
 
       dispatch(getChallenges())
     } catch (error) {
-      console.log('ERROR_SIGNUP', error)
+      console.log('ERROR_DELETE_CHALLENGE', error)
     }
   }
 )
 
 export const updateChallenge = createAsyncThunk<
   Promise<void>,
-  { text: string; documentId: string; streak: number; newCompletionDate: string },
+  { text: string; documentId: string; streak: number },
   { dispatch: AppDispatch; state: RootState }
->('challenge/updateChallenge', async ({ text, documentId, streak, newCompletionDate }, { dispatch }) => {
+>('challenge/updateChallenge', async ({ text, documentId, streak }, { dispatch }) => {
   try {
     const user = auth().currentUser
     const db = getFirestore(firebaseApp)
     const docRef = doc(db, 'challenges', documentId)
 
-    if (isSameDay(new Date(), addDays(new Date(newCompletionDate), 1))) {
+    // if (isSameDay(new Date(), addDays(new Date(newCompletionDate), 1))) {
+    if ((streak + 1) % 5 === 0) {
       await updateDoc(docRef, {
         uid: user?.uid,
         documentId,
         text,
         streak: streak + 1,
+        rewardAvailable: true,
         newCompletionDate: new Date().toISOString(),
-        prevCompletionDate: '',
       })
-    } else if (!streak) {
-      const docRef = doc(db, 'challenges', documentId)
+    } else {
       await updateDoc(docRef, {
         uid: user?.uid,
         documentId,
         text,
         streak: streak + 1,
+        rewardAvailable: true,
         newCompletionDate: new Date().toISOString(),
-        prevCompletionDate: '',
       })
     }
+
+    // }
 
     console.log('UPDATE_CHALLENGE_SUCCESS')
 
     dispatch(getChallenges())
   } catch (error) {
-    console.log('ERROR_SIGNUP', error)
+    console.log('ERROR_CLAIM_REWARD', error)
+  }
+})
+
+export const claimReward = createAsyncThunk<
+  Promise<void>,
+  { documentId: string; sticker: string },
+  { dispatch: AppDispatch; state: RootState }
+>('challenge/claimReward', async ({ documentId, sticker }, { dispatch }) => {
+  try {
+    const db = getFirestore(firebaseApp)
+    const docRef = doc(db, 'challenges', documentId)
+
+    await updateDoc(docRef, {
+      rewardAvailable: false,
+    })
+
+    console.log('CLAIM_REWARD_SUCCESS')
+
+    dispatch(getChallenges())
+    dispatch(updateUserStickers({ sticker, addSticker: true }))
+  } catch (error) {
+    console.log('ERROR_CLAIM_REWARD', error)
   }
 })
 

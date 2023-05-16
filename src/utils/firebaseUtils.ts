@@ -12,6 +12,7 @@ export const authCreateAccount = async (firstName: string, email: string, passwo
       uid: user?.uid,
       firstName,
       email,
+      stickers: [],
     })
 
     await authSignIn(email, password)

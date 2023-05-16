@@ -1,10 +1,10 @@
 import { PayloadAction, createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit'
-import { getFirestore, doc, collection, setDoc, where, getDocs, query, deleteDoc, updateDoc } from 'firebase/firestore'
+import { getFirestore, doc, collection, setDoc, where, getDocs, query, updateDoc } from 'firebase/firestore'
 import auth from '@react-native-firebase/auth'
 import { PURGE } from 'redux-persist'
 import { AppDispatch, RootState } from './store'
 import { firebaseApp } from '../config/firebase'
-import { isSameDay, addDays, isYesterday, isToday, getTime } from 'date-fns'
+import { isToday } from 'date-fns'
 import { groupedJournalsByMonth } from '../utils/dateUtils'
 
 export interface Journal {
@@ -14,6 +14,7 @@ export interface Journal {
   nightJournal: string
   photo: string
   photoText: string
+  sticker: string
   created_at: string
 }
 
@@ -66,13 +67,22 @@ export const updateJournal = createAsyncThunk<
     nightJournal?: string
     photo?: string
     photoText?: string
+    sticker?: string
     created_at?: string
   },
   { dispatch: AppDispatch; state: RootState }
 >(
   'journal/updateJournal',
   async (
-    { documentId = '', morningJournal = '', nightJournal = '', photo = '', photoText = '', created_at = '' },
+    {
+      documentId = '',
+      morningJournal = '',
+      nightJournal = '',
+      photo = '',
+      photoText = '',
+      sticker = '',
+      created_at = '',
+    },
     { dispatch, getState }
   ) => {
     try {
@@ -90,6 +100,7 @@ export const updateJournal = createAsyncThunk<
           nightJournal,
           photo,
           photoText,
+          sticker,
           created_at: new Date().toISOString(),
         })
       } else if (documentId) {
@@ -101,6 +112,7 @@ export const updateJournal = createAsyncThunk<
           nightJournal,
           photo,
           photoText,
+          sticker,
           created_at,
         })
       }

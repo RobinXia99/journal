@@ -5,7 +5,6 @@ import { theme } from '../theme'
 import { Button } from '../components/Button'
 import { validEmailExp } from '../utils/regularExpressions'
 import { authCreateAccount } from '../utils/firebaseUtils'
-import { useFirebaseAuth } from '../hooks/useFirebaseAuth'
 
 export const SignUpScreen: FC = () => {
   const [firstName, setFirstName] = useState<string>('')
@@ -27,15 +26,17 @@ export const SignUpScreen: FC = () => {
 
   return (
     <Container>
-      <Title>Skapa konto</Title>
-      <InputField placeholder="Förnamn" input={firstName} onChangeText={setFirstName}></InputField>
-      <InputField placeholder="E-post" input={email} onChangeText={setEmail}></InputField>
-      <InputField placeholder="Lösenord" input={password} onChangeText={setPassword} secureTextEntry></InputField>
+      <TitleContainer>
+        <Title>Skapa konto</Title>
+      </TitleContainer>
+      <InputField placeholder="Förnamn" input={firstName} onChangeText={setFirstName} label="Förnamn" />
+      <InputField placeholder="E-post" input={email} onChangeText={setEmail} label="E-post" />
+      <InputField placeholder="Lösenord" input={password} onChangeText={setPassword} secureTextEntry label="Lösenord" />
 
       <Button
         text="Skapa konto"
         background={!validInput ? theme.color.transparent : theme.color.green}
-        color={!validInput ? theme.color.darkerGreen : theme.color.white}
+        color={!validInput ? theme.color.darkGray : theme.color.white}
         loading={loading}
         disabled={!validInput}
         onPress={() => signUp(firstName, email, password)}
@@ -47,12 +48,18 @@ export const SignUpScreen: FC = () => {
 const Container = styled.View`
   width: 100%;
   height: 100%;
-  justify-content: center;
   align-items: center;
   padding: ${theme.spacing.large}px;
 `
+const TitleContainer = styled.View`
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  padding: ${theme.spacing.xlarge}px 0;
+  margin-top: 100px;
+`
+
 const Title = styled.Text`
-  color: ${theme.color.darkGreen};
-  font-size: 48px;
-  padding: ${theme.spacing.large}px;
+  color: ${theme.color.darkGray};
+  font-size: ${theme.fontSize.xlarge}px;
 `

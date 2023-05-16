@@ -31,6 +31,7 @@ export const CreateChallengeScreen: FC = () => {
         streak={0}
         text=""
         checked={true}
+        rewardAvailable={false}
         newCompletionDate=""
         cardType={CardType.edit}
         textInput={input}

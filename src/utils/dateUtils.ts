@@ -1,6 +1,6 @@
 import { sv } from 'date-fns/locale'
 import { Journal, UniqueMonthJournals } from '../state/journal'
-import { format, getTime } from 'date-fns'
+import { format } from 'date-fns'
 
 export const groupedJournalsByMonth = (data: Journal[]) => {
   const sortedJournals = data

@@ -46,6 +46,7 @@ export const HomeScreen: FC = () => {
             key={challenge.documentId}
             id={challenge.documentId}
             newCompletionDate={challenge.newCompletionDate}
+            rewardAvailable={challenge.rewardAvailable}
             streak={challenge.streak}
             checked={isSameDay(new Date(), new Date(challenge.newCompletionDate))}
             text={challenge.text}

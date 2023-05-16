@@ -8,13 +8,14 @@ import { Delete } from './icons/Delete'
 import { streakColor } from '../utils/calculationUtils'
 import { useAppDispatch } from '../hooks/hooks'
 import { deleteChallenge } from '../state/challenge'
-import { documentId } from 'firebase/firestore'
+import { useNavigation } from '@react-navigation/native'
 
 interface ChallengeCardProps {
   id: string
   streak: number
   text: string
   checked: boolean
+  rewardAvailable: boolean
   newCompletionDate: string
   cardType: CardType
   textInput?: string
@@ -32,6 +33,7 @@ export const ChallengeCard: FC<ChallengeCardProps> = ({
   streak,
   text,
   checked,
+  rewardAvailable,
   newCompletionDate,
   cardType,
   textInput,
@@ -43,11 +45,18 @@ export const ChallengeCard: FC<ChallengeCardProps> = ({
   const [loading, setLoading] = useState<boolean>(false)
 
   const dispatch = useAppDispatch()
+  const { navigate } = useNavigation()
 
   const handleDelete = async (documentId: string) => {
     setLoading(true)
     await dispatch(deleteChallenge(documentId))
     setLoading(false)
+  }
+
+  const handleClaim = () => {
+    if (rewardAvailable) {
+      navigate('Modal', { id })
+    }
   }
 
   return (
@@ -84,6 +93,11 @@ export const ChallengeCard: FC<ChallengeCardProps> = ({
             )}
           </>
         )}
+        {cardType === CardType.delete && !deleteEnabled && (
+          <RewardButton rewardAvailable={rewardAvailable} onPress={() => handleClaim()}>
+            <RewardLabel rewardAvailable={rewardAvailable}>{rewardAvailable ? 'Gåva' : `${streak % 5}/5`}</RewardLabel>
+          </RewardButton>
+        )}
       </RightColumn>
     </Container>
   )
@@ -105,7 +119,7 @@ const Container = styled.TouchableOpacity<{ background: string; checked: boolean
 const Column = styled.View`
   justify-content: center;
   padding: ${theme.spacing.large}px;
-  width: 80%;
+  width: 70%;
 `
 
 const StreakRow = styled.View`
@@ -128,16 +142,16 @@ const ChallengeLabel = styled.Text<{ checked: boolean }>`
 
 const TextField = styled(TextInput)`
   width: 100%;
-  font-size: ${theme.fontSize.large}px;
+  font-size: ${theme.fontSize.default}px;
   background-color: ${theme.color.white};
-  padding: ${theme.spacing.small}px;
+  padding: ${theme.spacing.xsmall}px;
   border-radius: 5px;
 `
 
 const RightColumn = styled.View`
   align-items: center;
   justify-content: center;
-  width: 20%;
+  width: 30%;
 `
 
 const IconContainer = styled.TouchableOpacity`
@@ -146,4 +160,20 @@ const IconContainer = styled.TouchableOpacity`
   border-radius: 50px;
   padding: ${theme.spacing.tiny}px;
   background-color: ${theme.color.white};
+`
+
+const RewardButton = styled.TouchableOpacity<{ rewardAvailable: boolean }>`
+  border: 1px solid ${theme.color.white};
+  background-color: ${(props) => (props.rewardAvailable ? theme.color.white : theme.color.transparent)};
+  border-radius: 50px;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+`
+
+const RewardLabel = styled.Text<{ rewardAvailable: boolean }>`
+  font-size: ${theme.fontSize.small}px;
+  font-family: ${theme.fontFamily.bold};
+  color: ${(props) => (props.rewardAvailable ? theme.color.green : theme.color.white)};
+  padding: ${theme.spacing.xsmall}px;
 `

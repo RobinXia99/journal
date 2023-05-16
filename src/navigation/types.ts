@@ -22,6 +22,8 @@ export type RootStackParamList = HomeStackParams &
     LoggedOutStart: undefined
     SignIn: undefined
     SignUp: undefined
+    Modal: { id?: string }
+    AddStickerModal: { id?: string }
   }
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<

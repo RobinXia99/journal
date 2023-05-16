@@ -2,7 +2,7 @@ import { Dimensions } from 'react-native'
 import { ScreenBase } from '../components/ScreenBase'
 import { useAppSelector } from '../hooks/hooks'
 import { selectJournalById } from '../state/journal'
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { RouteProps } from '../navigation/types'
 import { Title } from '../components/Text'
 import { Canvas, LinearGradient, Rect, vec } from '@shopify/react-native-skia'
@@ -13,17 +13,25 @@ import styled from 'styled-components/native'
 
 export const InspectJournalScreen: FC<RouteProps<'InspectJournal'>> = ({ route }) => {
   const { height, width } = Dimensions.get('screen')
-  const { setOptions } = useNavigation()
+  const { navigate, setOptions } = useNavigation()
 
   const { id } = route.params
 
   const journal = useAppSelector(selectJournalById(id))
+
+  const [selectedSticker, setSelectedSticker] = useState<string>('')
 
   useEffect(() => {
     setOptions({
       title: format(new Date(journal?.created_at || ''), 'yyyy-MM-dd'),
     })
   }, [setOptions, journal])
+
+  const handlePlaceSticker = () => {
+    if (!journal?.sticker) {
+      navigate('AddStickerModal', { id })
+    }
+  }
 
   return (
     <Container style={{ flex: 1 }}>
@@ -43,6 +51,15 @@ export const InspectJournalScreen: FC<RouteProps<'InspectJournal'>> = ({ route }
         <BodyText>{journal?.morningJournal}</BodyText>
         <TitleText>Vad är jag stolt/tacksam över idag?</TitleText>
         <BodyText>{journal?.nightJournal}</BodyText>
+        <StickerContainer>
+          <StickerFrame onPress={() => handlePlaceSticker()}>
+            {journal?.sticker ? (
+              <Sticker source={{ uri: journal.sticker }} />
+            ) : (
+              <AddStickerLabel>Placera klistermärke</AddStickerLabel>
+            )}
+          </StickerFrame>
+        </StickerContainer>
       </ScreenBase>
     </Container>
   )
@@ -57,7 +74,6 @@ const Card = styled.View`
   border-radius: 5px;
   width: 100%;
   height: 250px;
-  margin-bottom: ${theme.spacing.medium}px;
 `
 
 const ImageFrame = styled.Image`
@@ -69,13 +85,19 @@ const ImageFrame = styled.Image`
 `
 
 const ImageTextContainer = styled.View`
-  padding: ${theme.spacing.xsmall}px;
   align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: ${theme.color.black};
+  opacity: 0.8;
+  border-top-right-radius: 15px;
 `
 
 const ImageText = styled.Text`
-  color: ${theme.color.black};
+  color: ${theme.color.white};
   font-family: ${theme.fontFamily.light};
+  padding: ${theme.spacing.xsmall}px;
 `
 
 const TitleText = styled(Title)`
@@ -86,4 +108,34 @@ const TitleText = styled(Title)`
 const BodyText = styled(Title)`
   font-size: ${theme.fontSize.default}px;
   font-family: ${theme.fontFamily.light};
+`
+
+const StickerContainer = styled.View`
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: ${theme.spacing.xlarge}px;
+`
+
+const StickerFrame = styled.TouchableOpacity`
+  width: 130px;
+  height: 130px;
+  background-color: ${theme.color.gray};
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  shadow-opacity: 0.15;
+  shadow-radius: 3px;
+  shadow-offset: 0px 0px;
+`
+
+const AddStickerLabel = styled.Text`
+  font-family: ${theme.fontFamily.regular};
+  font-size: ${theme.fontSize.small}px;
+  color: ${theme.color.black};
+`
+
+const Sticker = styled.Image`
+  width: 120px;
+  height: 120px;
 `

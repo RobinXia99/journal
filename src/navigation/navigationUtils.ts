@@ -21,12 +21,12 @@ export const modalOptions: NativeStackNavigationOptions = {
   headerShown: false,
   presentation: 'modal',
   contentStyle: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     alignSelf: 'center',
     justifyContent: 'center',
     width: '100%',
     height: '100%',
-    padding: theme.spacing.xlarge,
+    padding: theme.spacing.large,
   },
 }
 

@@ -29,6 +29,7 @@ export const ChallengeScreen: FC = () => {
             key={challenge.documentId}
             id={challenge.documentId}
             streak={challenge.streak}
+            rewardAvailable={challenge.rewardAvailable}
             newCompletionDate={challenge.newCompletionDate}
             checked={true}
             text={challenge.text}
